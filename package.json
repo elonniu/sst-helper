@@ -1,16 +1,19 @@
 {
   "name": "sst-helper",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "A helper for SST.",
   "type": "module",
-  "main": "./src/index.ts",
-  "exports": "./src/index.ts",
-  "files":["lib/**/*"],
+  "main": "./lib/index.js",
+  "exports": "./lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
   "engines": {
     "node": "^12.17.0 || ^14.13 || >=16.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
     "release": "npm publish --registry=https://registry.npmjs.org"
   },
   "publishConfig": {
