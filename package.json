@@ -1,0 +1,28 @@
+{
+  "name": "sst-helper",
+  "version": "0.0.14",
+  "description": "A helper for SST.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": "./src/index.ts",
+  "files":["lib/**/*"],
+  "engines": {
+    "node": "^12.17.0 || ^14.13 || >=16.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "npm publish --registry=https://registry.npmjs.org"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "elon.niu@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "sst": "2.11.1",
+    "aws-cdk-lib": "2.79.1",
+    "constructs": "10.1.156",
+    "@types/node": "^18.11.11",
+    "typescript": "^5.1.3"
+  }
+}
