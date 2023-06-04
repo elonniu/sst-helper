@@ -1,14 +1,4 @@
-import { App, Bucket, EventBus, Queue, Stack, Table, Topic } from "sst/constructs";
-import * as lambda from "aws-cdk-lib/aws-lambda";
-export declare function stackUrl(stack: Stack, app: App): string;
-export declare function s3Url(bucket: Bucket, app: App): string;
-export declare function ddbUrl(table: Table, app: App): string;
-export declare function ddbExploreUrl(table: Table, app: App): string;
-export declare function sqsUrl(queue: Queue, app: App): string;
-export declare function busUrl(bus: EventBus, app: App): string;
-export declare function topicUrl(topic: Topic, app: App): string;
-export declare function kdsUrl(streamName: string, app: App): string;
-export declare function distributionUrl(id: string, app: App): string;
-export declare function route53Url(hostedZoneId: string, app: App): string;
-export declare function lambdaUrl(fn: lambda.Function, app: App): string;
-export declare function awsDomain(app: App): "amazonaws.cn" | "aws.amazon.com";
+export * from "./api.js";
+export * from "./console.js";
+export * from "./notify.js";
+export * from "./time.js";
