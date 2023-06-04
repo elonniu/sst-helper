@@ -29,7 +29,6 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "@slack/webhook": "^6.1.0",
-    "aws-sdk": "^2.1390.0"
+    "@slack/webhook": "^6.1.0"
   }
 }
