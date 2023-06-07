@@ -1,5 +1,6 @@
 import {App, Bucket, EventBus, Queue, Stack, Table, Topic} from "sst/constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
+import {aws_dynamodb} from "aws-cdk-lib";
 
 export function stackUrl(stack: Stack, app: App) {
     const {region} = app;
@@ -15,7 +16,11 @@ export function s3Url(bucket: Bucket, app: App) {
     return `https://s3.console.${awsDomain(app)}/s3/buckets/${bucket.bucketName}?region=${app.region}&tab=objects`;
 }
 
-export function ddbUrl(table: Table, app: App) {
+export function bucketUrl(bucket: Bucket, app: App) {
+    return s3Url(bucket, app);
+}
+
+export function ddbUrl(table: Table | aws_dynamodb.Table, app: App) {
     const {region} = app;
     return `https://${region}.console.${awsDomain(app)}/dynamodbv2/home#table?initialTagKey=&name=${table.tableName}`;
 }
