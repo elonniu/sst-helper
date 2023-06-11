@@ -11,10 +11,10 @@ export function param(value: string | undefined | number, key: string, defaultVa
     throw new Error(`${key} can not be empty`)
 }
 
-export function jsonResponse(json: object) {
+export function jsonResponse(json: object, statusCode: number = 200) {
     return {
         isBase64Encoded: false,
-        statusCode: 200,
+        statusCode,
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -23,11 +23,11 @@ export function jsonResponse(json: object) {
     };
 }
 
-export function htmlResponse(html: string): object {
+export function htmlResponse(html: string, statusCode: number = 200): object {
 
     return {
         isBase64Encoded: false,
-        statusCode: 200,
+        statusCode,
         headers: {
             'Content-Type': 'text/html',
             'Access-Control-Allow-Origin': '*',
