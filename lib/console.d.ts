@@ -1,7 +1,8 @@
-import { App, Bucket, EventBus, Queue, Stack, Table, Topic } from "sst/constructs";
+import { Api, ApiGatewayV1Api, App, Bucket, EventBus, Queue, Stack, Table, Topic } from "sst/constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { aws_dynamodb } from "aws-cdk-lib";
 export declare function stackUrl(stack: Stack, app: App): string;
+export declare function apiUrl(api: Api | ApiGatewayV1Api, app: App): string;
 export declare function s3Url(bucket: Bucket, app: App): string;
 export declare function bucketUrl(bucket: Bucket, app: App): string;
 export declare function ddbUrl(table: Table | aws_dynamodb.Table, app: App): string;

@@ -1,10 +1,15 @@
-import {App, Bucket, EventBus, Queue, Stack, Table, Topic} from "sst/constructs";
+import {Api, ApiGatewayV1Api, App, Bucket, EventBus, Queue, Stack, Table, Topic} from "sst/constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import {aws_dynamodb} from "aws-cdk-lib";
 
 export function stackUrl(stack: Stack, app: App) {
     const {region} = app;
     return `https://${region}.console.${awsDomain(app)}/cloudformation/home?region=${region}#/stacks/stackinfo?filteringStatus=active&filteringText=&viewNested=true&stackId=${stack.stackId}`;
+}
+
+export function apiUrl(api: Api | ApiGatewayV1Api, app: App) {
+    const {region} = app;
+    return `https://${region}.console.${awsDomain(app)}/apigateway/main/api-detail?api=${api.id}&region=${region}`;
 }
 
 export function s3Url(bucket: Bucket, app: App) {
