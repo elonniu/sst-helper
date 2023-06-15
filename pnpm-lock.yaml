@@ -3038,8 +3038,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /aws-sdk@2.1390.0:
-    resolution: {integrity: sha512-oY1kbL0eeOVIc2dBbzQpjdQ6H1frY2d/9fprC1Z5DWHmsq6f8AeB94/B8a8t8k/X0u+W7ZMuEwEDrndef9KwCw==}
+  /aws-sdk@2.1396.0:
+    resolution: {integrity: sha512-5tAzB4pO9mfwb4XbDIv7wj4IsxaLI+KEAUZ8CR80sh2OdsP9AVGtMGH61dH6DQbHxCiwtLyQuoy7gZEuXv2ldQ==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       buffer: 4.9.2
@@ -3267,7 +3267,7 @@ packages:
       '@aws-cdk/cloud-assembly-schema': 2.79.1
       '@aws-cdk/cx-api': 2.79.1(@aws-cdk/cloud-assembly-schema@2.79.1)
       archiver: 5.3.1
-      aws-sdk: 2.1390.0
+      aws-sdk: 2.1396.0
       glob: 7.2.3
       mime: 2.6.0
       yargs: 16.2.0
@@ -5407,7 +5407,7 @@ packages:
       adm-zip: 0.5.10
       aws-cdk-lib: 2.79.1(constructs@10.1.156)
       aws-iot-device-sdk: 2.2.12
-      aws-sdk: 2.1390.0
+      aws-sdk: 2.1396.0
       builtin-modules: 3.2.0
       cdk-assets: 2.79.1
       chalk: 5.2.0

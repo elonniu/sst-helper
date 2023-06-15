@@ -9,9 +9,9 @@ export function stackUrl(stack: Stack, app: App) {
 
 export function apiUrl(api: Api | ApiGatewayV1Api, app: App) {
     const {region} = app;
-    if (api instanceof ApiGatewayV1Api) {
-        return `https://${region}.console.${awsDomain(app)}/apigateway/home?region=${region}#/apis/${api.restApiId}/resources/`;
-    }
+    // if (api instanceof ApiGatewayV1Api) {
+    //     return `https://${region}.console.${awsDomain(app)}/apigateway/home?region=${region}#/apis/${api.restApiId}/resources/`;
+    // }
 
     return `https://${region}.console.${awsDomain(app)}/apigateway/main/api-detail?api=${api.id}&region=${region}`;
 }
