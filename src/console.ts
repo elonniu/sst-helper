@@ -1,4 +1,4 @@
-import {Api, ApiGatewayV1Api, App, Bucket, EventBus, Queue, Stack, Table, Topic} from "sst/constructs";
+import {Api, ApiGatewayV1Api, App, Bucket, Cognito, EventBus, Queue, Stack, Table, Topic} from "sst/constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import {aws_dynamodb} from "aws-cdk-lib";
 
@@ -17,6 +17,26 @@ export function apiUrl(api: Api | ApiGatewayV1Api, app: App) {
     }
 
     return `https://${region}.console.${awsDomain(app)}/apigateway/main/api-detail?api=${api.id}&region=${region}`;
+}
+
+export function userPoolUrl(auth: Cognito, app: App) {
+    const {region} = app;
+
+    if (region.startsWith('cn-')) {
+        return `https://${region}.console.${awsDomain(app)}/cognito/v2/idp/user-pools/${auth.userPoolId}/users?region=${region}`;
+    }
+
+    return `https://${region}.console.${awsDomain(app)}/cognito/v2/idp/user-pools/${auth.userPoolId}/users?region=${region}`;
+}
+
+export function identityPoolUrl(auth: Cognito, app: App) {
+    const {region} = app;
+
+    if (region.startsWith('cn-')) {
+        return `https://${region}.console.amazonaws.cn/cognito/v2/identity/identity-pools/${auth.cognitoIdentityPoolId}/user-statistics?region=${region}`;
+    }
+
+    return `https://${region}.console.amazonaws.cn/cognito/v2/identity/identity-pools/${auth.cognitoIdentityPoolId}/user-statistics?region=${region}`;
 }
 
 export function s3Url(bucket: Bucket, app: App) {
