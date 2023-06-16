@@ -1,36 +1,36 @@
-import {Api, ApiGatewayV1Api, App, Bucket, Cognito, EventBus, Queue, Stack, Table, Topic} from "sst/constructs";
+import {Api, ApiGatewayV1Api, Bucket, Cognito, EventBus, Queue, Stack, Table, Topic} from "sst/constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import {aws_dynamodb} from "aws-cdk-lib";
 
-export function stackUrl(stack: Stack, app: App) {
-    const {region} = app;
-    return `https://${region}.console.${awsDomain(app)}/cloudformation/home?region=${region}#/stacks/stackinfo?filteringStatus=active&filteringText=&viewNested=true&stackId=${stack.stackId}`;
+export function stackUrl(stack: Stack) {
+    const {region} = stack;
+    return `https://${region}.console.${awsDomain(stack)}/cloudformation/home?region=${region}#/stacks/stackinfo?filteringStatus=active&filteringText=&viewNested=true&stackId=${stack.stackId}`;
 }
 
-export function apiUrl(api: Api | ApiGatewayV1Api, app: App) {
-    const {region} = app;
+export function apiUrl(api: Api | ApiGatewayV1Api, stack: Stack) {
+    const {region} = stack;
 
     // @ts-ignore
     if (api?.restApiId) {
         // @ts-ignore
-        return `https://${region}.console.${awsDomain(app)}/apigateway/home?region=${region}#/apis/${api.restApiId}/resources/`;
+        return `https://${region}.console.${awsDomain(stack)}/apigateway/home?region=${region}#/apis/${api.restApiId}/resources/`;
     }
 
-    return `https://${region}.console.${awsDomain(app)}/apigateway/main/api-detail?api=${api.id}&region=${region}`;
+    return `https://${region}.console.${awsDomain(stack)}/apigateway/main/api-detail?api=${api.id}&region=${region}`;
 }
 
-export function userPoolUrl(auth: Cognito, app: App) {
-    const {region} = app;
+export function userPoolUrl(auth: Cognito, stack: Stack) {
+    const {region} = stack;
 
     if (region.startsWith('cn-')) {
-        return `https://${region}.console.${awsDomain(app)}/cognito/v2/idp/user-pools/${auth.userPoolId}/users?region=${region}`;
+        return `https://${region}.console.${awsDomain(stack)}/cognito/v2/idp/user-pools/${auth.userPoolId}/users?region=${region}`;
     }
 
-    return `https://${region}.console.${awsDomain(app)}/cognito/v2/idp/user-pools/${auth.userPoolId}/users?region=${region}`;
+    return `https://${region}.console.${awsDomain(stack)}/cognito/v2/idp/user-pools/${auth.userPoolId}/users?region=${region}`;
 }
 
-export function identityPoolUrl(auth: Cognito, app: App) {
-    const {region} = app;
+export function identityPoolUrl(auth: Cognito, stack: Stack) {
+    const {region} = stack;
 
     if (region.startsWith('cn-')) {
         return `https://${region}.console.amazonaws.cn/cognito/v2/identity/identity-pools/${auth.cognitoIdentityPoolId}/user-statistics?region=${region}`;
@@ -39,79 +39,79 @@ export function identityPoolUrl(auth: Cognito, app: App) {
     return `https://${region}.console.amazonaws.cn/cognito/v2/identity/identity-pools/${auth.cognitoIdentityPoolId}/user-statistics?region=${region}`;
 }
 
-export function s3Url(bucket: Bucket, app: App) {
+export function s3Url(bucket: Bucket, stack: Stack) {
 
-    if (app.region.startsWith('cn-')) {
-        return `https://console.${awsDomain(app)}/s3/buckets/${bucket.bucketName}?region=${app.region}&tab=objects`;
+    if (stack.region.startsWith('cn-')) {
+        return `https://console.${awsDomain(stack)}/s3/buckets/${bucket.bucketName}?region=${stack.region}&tab=objects`;
     }
 
-    return `https://s3.console.${awsDomain(app)}/s3/buckets/${bucket.bucketName}?region=${app.region}&tab=objects`;
+    return `https://s3.console.${awsDomain(stack)}/s3/buckets/${bucket.bucketName}?region=${stack.region}&tab=objects`;
 }
 
-export function bucketUrl(bucket: Bucket, app: App) {
-    return s3Url(bucket, app);
+export function bucketUrl(bucket: Bucket, stack: Stack) {
+    return s3Url(bucket, stack);
 }
 
-export function ddbUrl(table: Table | aws_dynamodb.Table, app: App) {
-    const {region} = app;
-    return `https://${region}.console.${awsDomain(app)}/dynamodbv2/home#table?initialTagKey=&name=${table.tableName}`;
+export function ddbUrl(table: Table | aws_dynamodb.Table, stack: Stack) {
+    const {region} = stack;
+    return `https://${region}.console.${awsDomain(stack)}/dynamodbv2/home#table?initialTagKey=&name=${table.tableName}`;
 }
 
-export function ddbExploreUrl(table: Table, app: App) {
-    const {region} = app;
-    return `https://${region}.console.${awsDomain(app)}/dynamodbv2/home?region=${region}#item-explorer?initialTagKey=&table=${table.tableName}`;
+export function ddbExploreUrl(table: Table, stack: Stack) {
+    const {region} = stack;
+    return `https://${region}.console.${awsDomain(stack)}/dynamodbv2/home?region=${region}#item-explorer?initialTagKey=&table=${table.tableName}`;
 }
 
-export function sqsUrl(queue: Queue, app: App) {
-    const {region} = app;
-    return `https://${region}.console.${awsDomain(app)}/sqs/v2/home?region=${region}#/queues/https%3A%2F%2Fsqs.${app.region}.amazonaws.com%2F${app.account}%2F${queue.queueName}`;
+export function sqsUrl(queue: Queue, stack: Stack) {
+    const {region} = stack;
+    return `https://${region}.console.${awsDomain(stack)}/sqs/v2/home?region=${region}#/queues/https%3A%2F%2Fsqs.${stack.region}.amazonaws.com%2F${stack.account}%2F${queue.queueName}`;
 }
 
-export function busUrl(bus: EventBus, app: App) {
+export function busUrl(bus: EventBus, stack: Stack) {
 
-    const {region} = app;
+    const {region} = stack;
 
-    return `https://${region}.console.${awsDomain(app)}/events/home?region=${region}#/eventbus/${bus.eventBusName}`;
+    return `https://${region}.console.${awsDomain(stack)}/events/home?region=${region}#/eventbus/${bus.eventBusName}`;
 }
 
-export function topicUrl(topic: Topic, app: App) {
+export function topicUrl(topic: Topic, stack: Stack) {
 
-    const {region} = app;
+    const {region} = stack;
 
-    return `https://${region}.console.${awsDomain(app)}/sns/v3/home?region=${region}#/topic/${topic.topicArn}`;
+    return `https://${region}.console.${awsDomain(stack)}/sns/v3/home?region=${region}#/topic/${topic.topicArn}`;
 }
 
-export function kdsUrl(streamName: string, app: App) {
+export function kdsUrl(streamName: string, stack: Stack) {
 
-    const {region} = app;
+    const {region} = stack;
 
-    return `https://${region}.console.${awsDomain(app)}/kinesis/home?region=${region}#/streams/details/${streamName}/monitoring`;
+    return `https://${region}.console.${awsDomain(stack)}/kinesis/home?region=${region}#/streams/details/${streamName}/monitoring`;
 }
 
-export function distributionUrl(id: string, app: App) {
+export function distributionUrl(id: string, stack: Stack) {
 
-    const {region} = app;
+    const {region} = stack;
 
-    return `https://${region}.console.${awsDomain(app)}/cloudfront/v3/home?#/distributions/${id}`;
+    return `https://${region}.console.${awsDomain(stack)}/cloudfront/v3/home?#/distributions/${id}`;
 }
 
-export function route53Url(hostedZoneId: string, app: App) {
+export function route53Url(hostedZoneId: string, stack: Stack) {
 
-    const {region} = app;
+    const {region} = stack;
 
-    return `https://${region}.console.${awsDomain(app)}/route53/v2/hostedzones#ListRecordSets/${hostedZoneId}`;
+    return `https://${region}.console.${awsDomain(stack)}/route53/v2/hostedzones#ListRecordSets/${hostedZoneId}`;
 }
 
-export function lambdaUrl(fn: lambda.Function, app: App) {
+export function lambdaUrl(fn: lambda.Function, stack: Stack) {
 
-    const {region} = app;
+    const {region} = stack;
 
-    return `https://${region}.console.${awsDomain(app)}/lambda/home?region=${region}#/functions/${fn.functionName}`;
+    return `https://${region}.console.${awsDomain(stack)}/lambda/home?region=${region}#/functions/${fn.functionName}`;
 }
 
-export function awsDomain(app: App) {
+export function awsDomain(stack: Stack) {
 
-    const {region} = app;
+    const {region} = stack;
 
     if (region && region.startsWith('cn')) {
         return `amazonaws.cn`;

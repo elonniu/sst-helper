@@ -1,6 +1,6 @@
 {
   "name": "sst-helper",
-  "version": "0.0.52",
+  "version": "0.0.53",
   "description": "A helper for SST.",
   "type": "module",
   "main": "./lib/index.js",
