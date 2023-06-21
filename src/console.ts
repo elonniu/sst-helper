@@ -1,10 +1,16 @@
 import {Api, ApiGatewayV1Api, Bucket, Cognito, EventBus, Queue, Stack, Table, Topic} from "sst/constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import {aws_dynamodb} from "aws-cdk-lib";
+import {CloudFrontWebDistribution} from "aws-cdk-lib/aws-cloudfront";
 
 export function stackUrl(stack: Stack) {
     const {region} = stack;
     return `https://${region}.console.${awsDomain(stack)}/cloudformation/home?region=${region}#/stacks/stackinfo?filteringStatus=active&filteringText=&viewNested=true&stackId=${stack.stackId}`;
+}
+
+export function cloudFrontUrl(stack: Stack, cf: CloudFrontWebDistribution) {
+    const {region} = stack;
+    return `https://${region}.console.${awsDomain(stack)}/cloudfront/v3/home?region=${region}#/distributions/${cf.distributionId}`;
 }
 
 export function apiUrl(api: Api | ApiGatewayV1Api, stack: Stack) {
