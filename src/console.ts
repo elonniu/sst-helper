@@ -22,7 +22,8 @@ export function apiUrl(api: Api | ApiGatewayV1Api, stack: Stack) {
         return `https://${region}.console.${awsDomain(stack)}/apigateway/home?region=${region}#/apis/${api.restApiId}/resources/`;
     }
 
-    return `https://${region}.console.${awsDomain(stack)}/apigateway/main/api-detail?api=${api.id}&region=${region}`;
+    // @ts-ignore
+    return `https://${region}.console.${awsDomain(stack)}/apigateway/main/api-detail?api=${api?.httpApiId}&region=${region}`;
 }
 
 export function userPoolUrl(auth: Cognito, stack: Stack) {
