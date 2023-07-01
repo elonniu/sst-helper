@@ -2,6 +2,7 @@ import {Api, ApiGatewayV1Api, Bucket, Cognito, EventBus, Queue, Stack, Table, To
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import {aws_dynamodb} from "aws-cdk-lib";
 import {CloudFrontWebDistribution} from "aws-cdk-lib/aws-cloudfront";
+import {StateMachine} from 'aws-cdk-lib/aws-stepfunctions';
 
 export function stackUrl(stack: Stack) {
     const {region} = stack;
@@ -62,6 +63,11 @@ export function bucketUrl(bucket: Bucket, stack: Stack) {
 export function ddbUrl(table: Table | aws_dynamodb.Table, stack: Stack) {
     const {region} = stack;
     return `https://${region}.console.${awsDomain(stack)}/dynamodbv2/home#table?initialTagKey=&name=${table.tableName}`;
+}
+
+export function sfUrl(sf: StateMachine, stack: Stack) {
+    const {region} = stack;
+    return `https://${region}.console.${awsDomain(stack)}/states/home?region=${region}#/statemachines/view/${sf.stateMachineArn}`;
 }
 
 export function ddbExploreUrl(table: Table, stack: Stack) {
