@@ -58,6 +58,10 @@ export function sfUrl(stateMachineArn: string, region: string) {
     return `https://${region}.console.${awsDomain(region)}/states/home?region=${region}#/statemachines/view/${stateMachineArn}`;
 }
 
+export function executionUrl(executionArn: string, region: string) {
+    return `https://${region}.console.${awsDomain(region)}/states/home?region=${region}#/v2/executions/details/${executionArn}`;
+}
+
 export function ddbExploreUrl(tableName: string, region: string) {
     return `https://${region}.console.${awsDomain(region)}/dynamodbv2/home?region=${region}#item-explorer?initialTagKey=&table=${tableName}`;
 }
