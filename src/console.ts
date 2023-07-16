@@ -62,6 +62,18 @@ export function executionUrl(executionArn: string, region: string) {
     return `https://${region}.console.${awsDomain(region)}/states/home?region=${region}#/v2/executions/details/${executionArn}`;
 }
 
+export function ec2InstanceUrl(arn: string, region: string) {
+    return `https://${region}.console.${awsDomain(region)}/ec2/home?region=${region}#InstanceDetails:instanceId=${arn}`;
+}
+
+export function fargateTaskUrl(arn: string, region: string) {
+    return `https://${region}.console.${awsDomain(region)}/ecs/v2/clusters/${arn.split('/')[1]}/tasks/${arn.split('/')[2]}/configuration?region=${region}&selectedContainer=TaskContainer`;
+}
+
+export function batchJobUrl(arn: string, region: string) {
+    return `https://${region}.console.${awsDomain(region)}/batch/home?region=${region}#jobs/fargate/detail/${arn}`;
+}
+
 export function ddbExploreUrl(tableName: string, region: string) {
     return `https://${region}.console.${awsDomain(region)}/dynamodbv2/home?region=${region}#item-explorer?initialTagKey=&table=${tableName}`;
 }
