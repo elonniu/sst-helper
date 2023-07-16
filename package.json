@@ -1,6 +1,6 @@
 {
   "name": "sst-helper",
-  "version": "0.0.60",
+  "version": "0.0.61",
   "description": "A helper for SST.",
   "type": "module",
   "main": "./lib/index.js",
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@slack/webhook": "^6.1.0",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "nanoid": "^4.0.2"
   }
 }

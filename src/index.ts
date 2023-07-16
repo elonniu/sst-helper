@@ -3,3 +3,4 @@ export * from "./console.js";
 export * from "./notify.js";
 export * from "./time.js";
 export * from "./json.js";
+export * from "./string.js";
