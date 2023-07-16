@@ -1,4 +1,5 @@
 import {Api, ApiGatewayV1Api, Stack} from "sst/constructs";
+import {fixedPath} from "./url.js";
 
 export function stackUrl(stackId: string, region: string) {
     return `https://${region}.console.${awsDomain(region)}/cloudformation/home?region=${region}#/stacks/stackinfo?filteringStatus=active&filteringText=&viewNested=true&stackId=${stackId}`;
@@ -104,6 +105,14 @@ export function route53Url(hostedZoneId: string, region: string) {
 
 export function lambdaUrl(functionName: string, region: string) {
     return `https://${region}.console.${awsDomain(region)}/lambda/home?region=${region}#/functions/${functionName}`;
+}
+
+export function lambdaLogUrl(context: any, region: string) {
+    return `https://${region}.console.${awsDomain(region)}/cloudwatch/home?region=${region}#logsV2:log-groups/log-group/${fixedPath(context.logGroupName)}/log-events/${fixedPath(context.logStreamName)}`;
+}
+
+export function apiLogUrl(apiId: string, region: string) {
+    return `https://${region}.console.${awsDomain(region)}/apigateway/main/api-detail?api=${apiId}&region=${region}`;
 }
 
 export function awsDomain(region: string) {
