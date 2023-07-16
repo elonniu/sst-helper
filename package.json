@@ -1,6 +1,6 @@
 {
   "name": "sst-helper",
-  "version": "0.0.69",
+  "version": "0.0.70",
   "description": "A helper for SST.",
   "type": "module",
   "main": "./lib/index.js",
@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "@slack/webhook": "^6.1.0",
+    "aws-cdk-lib": "2.84.0",
     "moment": "^2.29.4",
-    "nanoid": "^4.0.2",
-    "aws-cdk-lib": "2.79.1"
+    "nanoid": "^4.0.2"
   }
 }
