@@ -1,6 +1,6 @@
 {
   "name": "sst-helper",
-  "version": "0.0.70",
+  "version": "0.0.71",
   "description": "A helper for SST.",
   "type": "module",
   "main": "./lib/index.js",
@@ -28,6 +28,7 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.370.0",
     "@slack/webhook": "^6.1.0",
     "aws-cdk-lib": "2.84.0",
     "moment": "^2.29.4",

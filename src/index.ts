@@ -6,3 +6,4 @@ export * from "./json.js";
 export * from "./string.js";
 export * from "./object.js";
 export * from "./npm.js";
+export * from "./ddb.js";
