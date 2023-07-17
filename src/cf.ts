@@ -40,3 +40,15 @@ export async function getStackDeploymentsRegionIds(stackName: string) {
     const list = await stackExistsAndCompleteInAllRegions(stackName);
     return list.map(item => item.region);
 }
+
+export async function checkStackInRegions(StackName: string, regions: string[], appName: string) {
+    const deployRegions = await getStackDeploymentsRegionIds(StackName);
+    const notDeployRegions = regions.filter((region) => !deployRegions.includes(region));
+    if (notDeployRegions.length > 0) {
+        if (deployRegions.length > 0) {
+            throw new Error(`${appName} not in [${notDeployRegions.join(', ')}] yet, available regions [${deployRegions.join(', ')}]`);
+        } else {
+            throw new Error(`${appName} not in [${notDeployRegions.join(', ')}] yet`);
+        }
+    }
+}
