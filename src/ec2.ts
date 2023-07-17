@@ -5,6 +5,14 @@ const client = new EC2Client({region: process.env.AWS_REGION});
 export async function getAllRegions() {
 
     const command = new DescribeRegionsCommand({});
-    const response = await client.send(command);
-    return response.Regions && response.Regions.map(region => region.RegionName);
+    try {
+        const response = await client.send(command);
+        if(!response.Regions){
+            return [];
+        }
+        return response.Regions && response.Regions.map(region => region.RegionName);
+    } catch (e) {
+        console.error(e);
+        return [];
+    }
 }
