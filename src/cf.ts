@@ -1,14 +1,13 @@
 import {CloudFormationClient, DescribeStacksCommand} from "@aws-sdk/client-cloudformation";
 import {getAllRegions} from "./ec2.js";
 import {stackUrl} from "./console.js";
-import {Stack} from "@aws-sdk/client-cloudformation/dist-types/models/models_0.js";
 
-export async function stackExistsAndCompleteInAllRegions(stackName: string) {
+export async function stackInAllRegions(stackName: string) {
     const regions = await getAllRegions();
     const promises = regions.map(async region => {
 
         if (!region) {
-            return {region, deployed: false};
+            return null;
         }
 
         const client = new CloudFormationClient({region});
@@ -16,24 +15,44 @@ export async function stackExistsAndCompleteInAllRegions(stackName: string) {
             const command = new DescribeStacksCommand({StackName: stackName});
             const response = await client.send(command);
             if (!response || !response.Stacks || response.Stacks.length === 0) {
-                return {region, deployed: false};
+                return null;
             }
-            const stack: Stack = response.Stacks[0];
             return {
+                ...response.Stacks[0],
                 region,
-                url: stack.StackId ? stackUrl(stack.StackId, region) : "",
-                deployed: stack.StackStatus && stack.StackStatus.indexOf("COMPLETE") !== -1
             };
         } catch (err: any) {
             if (err.code !== "ValidationError") {
-                return {region, deployed: false};
+                return null;
             }
-            return {region, deployed: false};
+            return null;
         }
 
     });
 
-    return (await Promise.all(promises)).filter(item => item.deployed);
+    return (await Promise.all(promises)).filter(item => item);
+}
+
+export async function stackExistsAndCompleteInAllRegions(stackName: string) {
+    const stacks = await stackInAllRegions(stackName);
+
+    let list = [];
+
+    for (const stack of stacks) {
+
+        if (!stack) {
+            continue;
+        }
+
+        list.push({
+            ...stack,
+            url: stack.StackId ? stackUrl(stack.StackId, stack.region) : "",
+            deployed: stack.StackStatus && stack.StackStatus.indexOf("COMPLETE") !== -1
+        });
+
+    }
+
+    return list.filter(item => item.deployed);
 }
 
 export async function getStackDeploymentsRegionIds(stackName: string) {
