@@ -5,8 +5,14 @@ export function getRoot() {
     return execSync('npm root -g').toString().trim() + '/ibench';
 }
 
-export async function currentVersion() {
+export async function getPackageProperty(key: string, defaultVal: any = undefined) {
     const packages = getRoot() + '/package.json';
     const packageData = await fs.readFile(packages, 'utf-8');
-    return JSON.parse(packageData).version;
+    const json = JSON.parse(packageData);
+
+    return json[key] ? json[key] : defaultVal;
+}
+
+export async function currentVersion() {
+    return getPackageProperty('version');
 }

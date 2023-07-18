@@ -65,7 +65,7 @@ export async function checkStackInRegions(StackName: string, regions: string[], 
     const notDeployRegions = regions.filter((region) => !deployRegions.includes(region));
     if (notDeployRegions.length > 0) {
         if (deployRegions.length > 0) {
-            throw new Error(`${appName} not in [${notDeployRegions.join(',')}] yet, available regions [${deployRegions.join(', ')}]`);
+            throw new Error(`${appName} not in [${notDeployRegions.join(',')}] yet, available regions [${deployRegions.join(',')}]`);
         } else {
             throw new Error(`${appName} not in [${notDeployRegions.join(',')}] yet`);
         }
