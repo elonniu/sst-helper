@@ -1,5 +1,6 @@
 import {Api, ApiGatewayV1Api, Stack} from "sst/constructs";
 import {fixedPath} from "./url.js";
+import {RestApi} from "aws-cdk-lib/aws-apigateway";
 
 export function stackUrl(stackId: string, region: string) {
     return `https://${region}.console.${awsDomain(region)}/cloudformation/home?#/stacks/stackinfo?stackId=${stackId}`;
@@ -9,7 +10,7 @@ export function cloudFrontUrl(distributionId: string, region: string) {
     return `https://${region}.console.${awsDomain(region)}/cloudfront/v3/home?#/distributions/${distributionId}`;
 }
 
-export function apiUrl(api: Api | ApiGatewayV1Api, stack: Stack) {
+export function apiUrl(api: Api | ApiGatewayV1Api | RestApi, stack: Stack) {
     const {region} = stack;
 
     // @ts-ignore
