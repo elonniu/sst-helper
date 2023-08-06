@@ -2,15 +2,15 @@ import {CloudFormationClient, DescribeStacksCommand} from "@aws-sdk/client-cloud
 import {getAllRegions} from "./ec2.js";
 import {stackUrl} from "./console.js";
 
-export async function stackInAllRegions(stackName: string) {
-    const regions = await getAllRegions();
+export async function stackInAllRegions(stackName: string, configuration = {}) {
+    const regions = await getAllRegions(configuration);
     const promises = regions.map(async region => {
 
         if (!region) {
             return null;
         }
 
-        const client = new CloudFormationClient({region});
+        const client = new CloudFormationClient({...configuration, region});
         try {
             const command = new DescribeStacksCommand({StackName: stackName});
             const response = await client.send(command);
@@ -33,8 +33,8 @@ export async function stackInAllRegions(stackName: string) {
     return (await Promise.all(promises)).filter(item => item);
 }
 
-export async function stackExistsAndCompleteInAllRegions(stackName: string) {
-    const stacks = await stackInAllRegions(stackName);
+export async function stackExistsAndCompleteInAllRegions(stackName: string, configuration = {}) {
+    const stacks = await stackInAllRegions(stackName, configuration);
 
     let list = [];
 
@@ -55,13 +55,13 @@ export async function stackExistsAndCompleteInAllRegions(stackName: string) {
     return list.filter(item => item.deployed);
 }
 
-export async function getStackDeploymentsRegionIds(stackName: string) {
-    const list = await stackExistsAndCompleteInAllRegions(stackName);
+export async function getStackDeploymentsRegionIds(stackName: string, configuration = {}) {
+    const list = await stackExistsAndCompleteInAllRegions(stackName, configuration);
     return list.map(item => item.region);
 }
 
-export async function checkStackInRegions(StackName: string, regions: string[], appName: string) {
-    const deployRegions = await getStackDeploymentsRegionIds(StackName);
+export async function checkStackInRegions(StackName: string, regions: string[], appName: string, configuration = {}) {
+    const deployRegions = await getStackDeploymentsRegionIds(StackName, configuration);
     const notDeployRegions = regions.filter((region) => !deployRegions.includes(region));
     if (notDeployRegions.length > 0) {
         if (deployRegions.length > 0) {

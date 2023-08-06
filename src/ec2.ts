@@ -1,18 +1,16 @@
 import {DescribeRegionsCommand, EC2Client} from "@aws-sdk/client-ec2";
 
-const client = new EC2Client({region: process.env.AWS_REGION});
+export async function getAllRegions(configuration = {}) {
 
-export async function getAllRegions() {
+    const client = new EC2Client(configuration);
 
-    const command = new DescribeRegionsCommand({});
-    try {
-        const response = await client.send(command);
-        if(!response.Regions){
-            return [];
-        }
-        return response.Regions && response.Regions.map(region => region.RegionName);
-    } catch (e) {
-        console.error(e);
+    const command = new DescribeRegionsCommand({AllRegions: true});
+
+    const response = await client.send(command);
+    if (!response.Regions) {
         return [];
     }
+
+    return response.Regions && response.Regions.map(region => region.RegionName);
+
 }
