@@ -16,11 +16,11 @@ export function apiUrl(api: Api | ApiGatewayV1Api | RestApi, stack: Stack) {
     // @ts-ignore
     if (api?.restApiId) {
         // @ts-ignore
-        return `https://${region}.console.${awsDomain(region)}/apigateway/home?#/apis/${api.restApiId}/resources/`;
+        return `https://${region}.console.${awsDomain(region)}/apigateway/home?#/apis/${api.restApiId}/resources/?region=${region}`;
     }
 
     // @ts-ignore
-    return `https://${region}.console.${awsDomain(region)}/apigateway/main/api-detail?api=${api?.httpApiId}`;
+    return `https://${region}.console.${awsDomain(region)}/apigateway/main/api-detail?api=${api?.httpApiId}&region=${region}`;
 }
 
 export function userPoolUrl(userPoolId: string, region: string) {

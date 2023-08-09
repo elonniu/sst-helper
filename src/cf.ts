@@ -52,7 +52,7 @@ export async function stackExistsAndCompleteInAllRegions(stackName: string, conf
 
     }
 
-    return list.filter(item => item.deployed);
+    return list;
 }
 
 export async function getStackDeploymentsRegionIds(stackName: string, configuration = {}) {
